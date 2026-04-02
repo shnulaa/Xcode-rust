@@ -362,12 +362,15 @@ fn format_direct_slash_command_error(command: &str, is_unknown: bool) -> String 
     lines.join("\n")
 }
 
-fn resolve_model_alias(model: &str) -> &str {
+fn resolve_model_alias(model: &str) -> String {
     match model {
-        "opus" => "claude-opus-4-6",
-        "sonnet" => "claude-sonnet-4-6",
-        "haiku" => "claude-haiku-4-5-20251213",
-        _ => model,
+        "opus" => env::var("ANTHROPIC_DEFAULT_OPUS_MODEL")
+            .unwrap_or_else(|_| "claude-opus-4-6".to_string()),
+        "sonnet" => env::var("ANTHROPIC_DEFAULT_SONNET_MODEL")
+            .unwrap_or_else(|_| "claude-sonnet-4-6".to_string()),
+        "haiku" => env::var("ANTHROPIC_DEFAULT_HAIKU_MODEL")
+            .unwrap_or_else(|_| "claude-haiku-4-5-20251213".to_string()),
+        _ => model.to_string(),
     }
 }
 
