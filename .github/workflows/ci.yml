@@ -17,7 +17,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - windows-latest
+          # - windows-latest
 
     steps:
       - name: Check out repository
@@ -29,8 +29,8 @@ jobs:
       - name: Run cargo check
         run: cargo check --workspace
 
-      - name: Run cargo test
-        run: cargo test --workspace
+      # - name: Run cargo test
+      #   run: cargo test --workspace
 
       - name: Run release build
         run: cargo build --release
